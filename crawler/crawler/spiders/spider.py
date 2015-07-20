@@ -7,7 +7,8 @@ import scrapy
 
 class CrawlerSpider(scrapy.Spider):
     name = "baidu"
-    start_urls = ["http://www.baidu.com","http://www.zhangyu.tv"]
+    allowed_domains = ["baidu.com"]
+    start_urls = ["http://www.baidu.com"]
     filename = response.url.split("/")[-2]
         with open(filename, 'wb') as f:
             f.write(response.body)
