@@ -4,8 +4,7 @@
 
 import scrapy
 
-
-class CrawlerSpider(scrapy.spiders.Spider):
+class BaiduSpider(scrapy.spiders.Spider):
     name = "baidu"
     allowed_domains = ["dmoz.org"]
     start_urls = ["http://www.baidu.com"]
