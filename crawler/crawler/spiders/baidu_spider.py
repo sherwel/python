@@ -8,10 +8,6 @@ import scrapy
 class CrawlerSpider(scrapy.spiders.Spider):
     name = "baidu"
     allowed_domains = ["dmoz.org"]
-    start_urls = [
-        "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
-        "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/"
-    ]
-
+    start_urls = ["http://www.baidu.com"]
     def parse(self, response):
         
