@@ -4,9 +4,9 @@
 
 import scrapy
 
-class BaiduSpider(scrapy.spiders.Spider):
+class BaiduSpider(scrapy.Spider):
     name = "baidu"
-    allowed_domains = ["dmoz.org"]
+    allowed_domains = ["baidu.com"]
     start_urls = ["http://www.baidu.com"]
     def parse(self, response):
-        
+        pass
