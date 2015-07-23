@@ -2,9 +2,9 @@
 
 # Define here the models for your scraped spider
 
-import scrapy
+from scrapy.spiders import Spider
 
-class BaiduSpider(scrapy.spiders.Spider):
+class BaiduSpider(Spider):
     name = "baidus"
     allowed_domains = ["baidu.com"]
     start_urls = ["http://www.baidu.com"]
