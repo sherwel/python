@@ -1,35 +1,55 @@
 # -*- coding: utf-8 -*-
+
 import smtplib
 from email.mime.text import MIMEText
-#
-host = 'smtp.exmail.qq.com'
-port = '25'
+from email.mime.multipart import MIMEMultipart
 
-to = ['710270532@qq.com']
-cc = ['daodaozhanhou@163.com']#抄送
-bcc = []#密送
+class Mail():
+	def __init__(self, port, host, sender, username, password):
+		self.port = port
+		self.host = host
+		self.sender = sender
+		self.username = username
+		self.password = password
+		
+	def sendSimpleMail(self, subject, content, to, cc, bcc):
+		try:
+			message = MIMEText(content, _subtype='html', _charset='utf-8')#创建一个html格式邮件的实例
+			message['Subject'] = subject
+			message['From'] = '<'+self.sender+'>'
+			message['To'] = ';'.join(to)
+			message['Cc'] = ';'.join(cc)
+			message['Bcc'] = ';'.join(bcc)
 
-subject = 'python邮件测试'#设置主题
-content = u'''python邮件测试内容,怎么就能不成功，怎么就垃圾邮件了，
-快成功吧。标题也也有、写了这么多字还垃圾邮件，你逗我'''
+			server = smtplib.SMTP(self.host, self.port)
+			server.set_debuglevel(False)#False/True
+			server.login(self.username, self.password)
+			server.sendmail(self.sender, to+cc+bcc, message.as_string())
+			server.quit()
+			return True
+		except Exception,e:
+			return False
 
-sender = 'hongwei.zhang@fengyunzhibo.com'
-username = 'hongwei.zhang@fengyunzhibo.com'
-password = '001gujingwubo'
+	def sendMultipartMail(self, subject, filename, content, to, cc, bcc):
+		try:
+			message = MIMEMultipart()#创建一个带附件格式邮件的实例
+			message['Subject'] = subject
+			message['From'] = '<'+self.sender+'>'
+			message['To'] = ';'.join(to)
+			message['Cc'] = ';'.join(cc)
+			message['Bcc'] = ';'.join(bcc)
+
+			attach = MIMEText(open('d:\\123.text', 'rb').read(), 'base64', 'gb2312')
+			attach["Content-Type"] = 'application/octet-stream'
+			attach["Content-Disposition"] = 'attachment; filename="'+filename+'"'
+			message.attach(attach)
 
 
-class Mail:
-	def _init_():
-		message = MIMEText(content, _subtype='html', _charset='utf-8')#创建一个html格式邮件的实例
-		message['Subject'] = subject
-		message['From'] = '<'+sender+'>'
-		message['To'] = ';'.join(to)
-		message['Cc'] = ';'.join(cc)
-		message['Bcc'] = ';'.join(bcc)
-
-		server = smtplib.SMTP(host, port)
-		server.set_debuglevel(False)#False/True
-		server.login(username, password)
-		server.sendmail(sender, to+cc+bcc, message.as_string())
-		server.quit()
-		print 'send simple email success'
+			server = smtplib.SMTP(self.host, self.port)
+			server.set_debuglevel(False)#False/True
+			server.login(self.username, self.password)
+			server.sendmail(self.sender, to+cc+bcc, message.as_string())
+			server.quit()
+			return True
+		except Exception,e:
+			return False

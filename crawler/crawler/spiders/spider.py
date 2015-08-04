@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from scrapy import log
 from scrapy.spiders import Spider
 from scrapy.mail import MailSender
