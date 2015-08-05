@@ -14,14 +14,14 @@ attachment = {
 }
 
 email = mail.Mail('25', 'smtp.exmail.qq.com', 'hongwei.zhang@fengyunzhibo.com', 'hongwei.zhang@fengyunzhibo.com', '')
-# flag = email.sendSimpleMail(subject, content, to, cc, bcc)
-# if(flag):
-# 	print 'send simple email success'
-# else:
-# 	print 'send simple email fail'
-
-flag = email.sendMultipartMail(subject, content, attachment, to, cc, bcc)
+flag = email.sendSimpleMail(subject, content, to, cc, bcc)
 if(flag):
-	print 'send attachment email success'
+	print 'send simple email success'
 else:
-	print 'send attachment email fail'
+	print 'send simple email fail'
+
+# flag = email.sendMultipartMail(subject, content, attachment, to, cc, bcc)
+# if(flag):
+# 	print 'send attachment email success'
+# else:
+# 	print 'send attachment email fail'
