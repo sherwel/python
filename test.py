@@ -13,7 +13,7 @@ attachment = {
 	u'附件.txt':'D:\\f.txt'
 }
 
-email = mail.Mail('25', 'smtp.exmail.qq.com', 'hongwei.zhang@fengyunzhibo.com', 'hongwei.zhang@fengyunzhibo.com', '001gujingwubo')
+email = mail.Mail('25', 'smtp.exmail.qq.com', 'hongwei.zhang@fengyunzhibo.com', 'hongwei.zhang@fengyunzhibo.com', '')
 # flag = email.sendSimpleMail(subject, content, to, cc, bcc)
 # if(flag):
 # 	print 'send simple email success'
