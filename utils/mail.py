@@ -14,7 +14,8 @@ class Mail():
 		
 	def sendSimpleMail(self, subject, content, to, cc, bcc):
 		try:
-			message = MIMEText(content, _subtype='html', _charset='utf-8')#创建一个html格式邮件的实例
+			#创建一个html格式邮件的实例
+			message = MIMEText(_text=content, _subtype='html', _charset='utf-8')
 			message['Subject'] = subject
 			message['From'] = '<'+self.sender+'>'
 			message['To'] = ';'.join(to)
@@ -30,26 +31,30 @@ class Mail():
 		except Exception,e:
 			return False
 
-	def sendMultipartMail(self, subject, filename, content, to, cc, bcc):
+	def sendMultipartMail(self, subject, content, attachment, to, cc, bcc):
 		try:
-			message = MIMEMultipart()#创建一个带附件格式邮件的实例
+			#创建一个带附件格式邮件的实例
+			message = MIMEMultipart()
 			message['Subject'] = subject
 			message['From'] = '<'+self.sender+'>'
 			message['To'] = ';'.join(to)
 			message['Cc'] = ';'.join(cc)
 			message['Bcc'] = ';'.join(bcc)
 
-			attach = MIMEText(open('d:\\123.text', 'rb').read(), 'base64', 'gb2312')
-			attach["Content-Type"] = 'application/octet-stream'
-			attach["Content-Disposition"] = 'attachment; filename="'+filename+'"'
-			message.attach(attach)
-
-
+			#添加附件
+			if attachment is not None:
+				for filename in attachment:
+					path = attachment[filename]
+					attach = MIMEText(_text=open(path, 'rb').read(), _subtype='base64', _charset='utf-8')
+					attach["Content-Type"] = 'application/octet-stream'
+					attach["Content-Disposition"] = 'attachment; filename="'+filename.encode('gbk')+'"'#解决附件名中文乱码
+					message.attach(attach)
 			server = smtplib.SMTP(self.host, self.port)
-			server.set_debuglevel(False)#False/True
+			server.set_debuglevel(True)#False/True
 			server.login(self.username, self.password)
 			server.sendmail(self.sender, to+cc+bcc, message.as_string())
 			server.quit()
 			return True
 		except Exception,e:
+			print e
 			return False
