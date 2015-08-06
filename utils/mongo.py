@@ -3,13 +3,21 @@
 from pymongo import MongoClient
 
 class MongoConnection():
-	def __init__(self, _port=27017, _host='localhost', _databaseName='test', _username='root', _password='root'):
-		client = MongoClient(_host, _port)
-		self.db = client[_databaseName]
-		print self.db.authenticate(_username, _password)
+	def __init__(self, port=27017, host='localhost', databaseName='test', replicaSet=None):
+		if replicaSet!=None:
+			client = MongoClient(host=host, port=port, replicaSet=replicaSet)
+		else:
+			client = MongoClient(host=host, port=port)
+		self.db = client[databaseName]
 
-	def insert(self, collectionName):
-		collection = self.db[collectionName]
+	def auth(self, username='root', password='root'):
+		return self.db.authenticate(username, password)
+
+
+	def insert(self, collectionName, document):
+		posts = self.db.posts
+		_id = posts.insert(document)
+		return _id
 
 	def delete(self, collectionName):
 		collection = self.db[collectionName]
