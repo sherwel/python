@@ -7,5 +7,12 @@ result = connection.auth(username='root', password='root')
 
 if result==True:
 	print 'mongodb connection success'
+	_id = connection.insert('python', {"email":"hongwei.zhang@fengyunzhibo.com"})
+	print _id
+
+	print connection.find('python',None)
+	
 else:
 	print 'mongodb connection fail'
+
+

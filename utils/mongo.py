@@ -14,16 +14,44 @@ class MongoConnection():
 		return self.db.authenticate(username, password)
 
 
+	#增
 	def insert(self, collectionName, document):
-		posts = self.db.posts
-		_id = posts.insert(document)
+		collection = self.db[collectionName]
+		_id = collection.insert(document)
 		return _id
 
-	def delete(self, collectionName):
+	def insertMany(self, collectionName, documents, ordered=True):
 		collection = self.db[collectionName]
+		collection.insert_many(documents, ordered)
 
-	def find(self, collectionName):
-		collection = self.db[collectionName]
 
-	def update(self, collectionName):
+	#删
+	def delete(self, collectionName, filter):
 		collection = self.db[collectionName]
+		collection.delete_one(filter)
+
+	def deleteMany(self, collectionName, filter):
+		collection = self.db[collectionName]
+		collection.delete_many(filter)
+
+	#查
+	def find(self, collectionName, document):
+		collection = self.db[collectionName]
+		return collection.find_one(document)
+
+	def findMany(self, collectionName, document):
+		collection = self.db[collectionName]
+		return collection.find(document)
+
+	def count(self, collectionName, document):
+		collection = self.db[collectionName]
+		return collection.find(document).count()
+
+	#改
+	def update(self, collectionName, filter, update, upsert=False):
+		collection = self.db[collectionName]
+		collection.update_one(filter, update, upsert)
+
+	def updateMany(self, collectionName, filter, update, upsert=False):
+		collection = self.db[collectionName]
+		collection.update_many(filter, update, upsert)
