@@ -8,7 +8,10 @@ def copy(oldPath, newPath):
 	# 'a' 		 追加(文件不存在则创建)
 	# 'r+'('w+') 读写方式
 	# 'a+' 		 追加和读写方式
-	file = open(oldPath,'r',1024)
-	for line in file.readlines():
-		print line
-	file.close()
+	oldFile = open(oldPath,'r',1024)
+	oldFile.readlines()
+
+	newFile = open(newPath,'w',1024)
+	newFile.write()
+
+	oldFile.close()
