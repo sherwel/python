@@ -13,7 +13,7 @@ def copy(oldPath, newPath, position):
 	newFile = open(newPath,'w','utf-8')
 	
 	#文件指针相对偏移
-	#os.SEEK_SET(0)  相对文件起始位置 
+	#os.SEEK_SET(0)  相对文件起始位置
 	#os.SEEK_CUR(1)  相对文件当前位置
 	#os.SEEK_END(2)  相对文件结束位置
 	oldFile.seek(position,os.SEEK_SET)
