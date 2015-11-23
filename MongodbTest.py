@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from utils import mongo
+from utils import mongodb
 
-connection = mongo.MongoConnection(port=27017, host='localhost', databaseName='test', replicaSet=None)
+connection = mongodb.MongoConnection(port=27017, host='localhost', databaseName='test', replicaSet=None)
 result = connection.auth(username='root', password='root')
 
 if result==True:
